@@ -12,8 +12,13 @@ import (
 
 // Provision will create a new Harbor CR.
 func (harbor *HarborReconciler) Provision() (*lcm.CRStatus, error) {
+	err := harbor.CheckIssuer()
+	if err != nil {
+		return harborClusterCRNotReadyStatus(CreateRegistryCertError, err.Error()), err
+	}
+
 	harborCR := harbor.newHarborCR()
-	err := harbor.Create(harborCR)
+	err = harbor.Create(harborCR)
 	if err != nil {
 		return harborClusterCRNotReadyStatus(CreateHarborCRError, err.Error()), err
 	}
@@ -23,7 +28,6 @@ func (harbor *HarborReconciler) Provision() (*lcm.CRStatus, error) {
 // newHarborCR will create a new Harbor CR controlled by harbor-operator
 func (harbor *HarborReconciler) newHarborCR() *v1alpha1.Harbor {
 	namespacedName := harbor.getHarborCRNamespacedName()
-
 	return &v1alpha1.Harbor{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      namespacedName.Name,

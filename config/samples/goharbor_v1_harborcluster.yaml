@@ -30,10 +30,10 @@ spec:
   replicas: 1
 
   # source registry of images
-#  imageSource:
-#    registry: harbor.com
-#    imagePullSecrets:
-#      - pSecret
+  #  imageSource:
+  #    registry: harbor.com
+  #    imagePullSecrets:
+  #      - pSecret
 
   # extra configuration options for jobservices
   jobService:
@@ -41,23 +41,23 @@ spec:
     replicas: 1
 
   # extra configuration options for clair scanner
-#  clair:
-#    updateInterval: 10
-#    vulnerabilitySources:
-#      - ubuntu
-#      - alphine
+  #  clair:
+  #    updateInterval: 10
+  #    vulnerabilitySources:
+  #      - ubuntu
+  #      - alphine
 
   # extra configuration options for trivy scanner
-#  trivy:
-#    github_token: 123
+  #  trivy:
+  #    github_token: 123
 
   # extra configuration options for chartmeseum
-#  chartMuseum:
-#    absoluteURL: true
+  #  chartMuseum:
+  #    absoluteURL: true
 
   # extra configuration options for notary
-#  notary:
-#    publicURL: "http://.."
+  #  notary:
+  #    publicURL: "http://.."
 
   # cache service(Redis) configurations
   # might be external redis services or inCluster redis services
@@ -66,35 +66,35 @@ spec:
     # set the kind of which redis service to be used, inCluster or external.
     # setting up a harbor-cluster with external redis service should provide client params to communicate. The difference between inCluster redis and external redis is that the inCluster redis installed automatically. the params of external kind are in the following comments.
     kind: external
-#       // the secret must contains "address:port","usernane" and "password".
-#       // required
+    #       // the secret must contains "address:port","usernane" and "password".
+    #       // required
     spec:
       schema: redis
       secretName: all-in-one-redis
-#       // Maximum number of socket connections.
-#       // Default is 10 connections per every CPU as reported by runtime.NumCPU.
-#       // optional
+      #       // Maximum number of socket connections.
+      #       // Default is 10 connections per every CPU as reported by runtime.NumCPU.
+      #       // optional
       poolSize: 10
-#       // TLS Config to use. When set TLS will be negotiated.
-#       // set the secret which type of Opaque, and contains "tls.key","tls.crt","ca.crt".
-#       // optional
-#      tlsConfig: secretName
-#    kind: inCluster
-#    server:
-#      replicas: 3
-#      # optional
-#      resources:
-#        requests:
-#          memory: 2048Mi
-#          cpu: 2000m
-#        limit:
-#          memory: 2048Mi
-#          cpu: 2000m
-#      # optional
-#      storageClassName: default
-#      storage: 5Gi
-#    sentinel:
-#      replicas: 3
+  #       // TLS Config to use. When set TLS will be negotiated.
+  #       // set the secret which type of Opaque, and contains "tls.key","tls.crt","ca.crt".
+  #       // optional
+  #      tlsConfig: secretName
+  #    kind: inCluster
+  #    server:
+  #      replicas: 3
+  #      # optional
+  #      resources:
+  #        requests:
+  #          memory: 2048Mi
+  #          cpu: 2000m
+  #        limit:
+  #          memory: 2048Mi
+  #          cpu: 2000m
+  #      # optional
+  #      storageClassName: default
+  #      storage: 5Gi
+  #    sentinel:
+  #      replicas: 3
 
   # database service (PostgresSQL) configuration
   # required
@@ -102,29 +102,29 @@ spec:
     # set the kind of which redis service to be used, inCluster or external.
     # a sample of external kind.
     kind: external
-#       // the secret must contains "address:port","usernane" and "password".
-#       // required
+    #       // the secret must contains "address:port","usernane" and "password".
+    #       // required
     spec:
       secretName: all-in-one-database-secret
-#       // TLS Config to use. When set TLS will be negotiated.
-#       // set the secret which type of Opaque, and contains "tls.key","tls.crt","ca.crt".
-#       // optional
-#      sslConfig: secretName
+      #       // TLS Config to use. When set TLS will be negotiated.
+      #       // set the secret which type of Opaque, and contains "tls.key","tls.crt","ca.crt".
+      #       // optional
+      #      sslConfig: secretName
       connect_timeout: 10
-#    kind: inCluster
-#      storage: 1Gi
-#      replicas: 2
-#      version: "12"
-#      # optional
-#      storageClassName: default
-#      # optional
-#      resources:
-#        limits:
-#          cpu: 500m
-#          memory: 500Mi
-#        requests:
-#          cpu: 100m
-#          memory: 250Mi
+  #    kind: inCluster
+  #      storage: 1Gi
+  #      replicas: 2
+  #      version: "12"
+  #      # optional
+  #      storageClassName: default
+  #      # optional
+  #      resources:
+  #        limits:
+  #          cpu: 500m
+  #          memory: 500Mi
+  #        requests:
+  #          cpu: 100m
+  #          memory: 250Mi
 
   # storage service configurations
   # might be external cloud storage services or inCluster storage (minIO)
